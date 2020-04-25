@@ -5,23 +5,18 @@ exports.up = function(knex) {
   // users table
   .createTable('users', users => {
     users
-      .increment();
+      .increments();
     users
       .string('username', 30)
       .notNullable()
-      .unique()
+      .unique();
     users
       .string('password', 30)
       .notNullable();
     users
-      .string('firstname', 30)
+      .string('firstname', 30);
     users
-      .string('lastname', 30)
-  })
-
-  // classes table
-  .createTable('classes', classes => {
-    
+      .string('lastname', 30);
   })
 };
 
