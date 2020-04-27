@@ -20,18 +20,20 @@ router.post('/register', (req, res) => {
     Users.find(user => {e
       if (user.username === req.body.username) {
         res.json({ message: 'User already exists. Login or register.' })
+      } else {
+        Users.add(req.body)
+          .then(saved => {
+            res.status(201).json({ message: 'user added!'});
+            // req.session.user = newUser;
+            // res.redirect('/dad-jokes')
+          })
+          .catch(error => {
+            res.status(500).json(error)
+    })
       }
     });
     // const newUser = { username: req.body.username, password: req.body.password }
-    Users.add(req.body)
-    .then(saved => {
-      res.status(201).json({ message: 'user added!'});
-      // req.session.user = newUser;
-      // res.redirect('/dad-jokes')
-    })
-    .catch(error => {
-      res.status(500).json(error)
-    })
+    
   }
   // let user = req.body;
   // const hash = bcrypt.hashSync(user.password, 10); 
