@@ -10,9 +10,11 @@ function find() {
   return db('users').select('username')
 }
 
-async function add(user) {
-  const [id] = await db('users').insert(user);
-  return findById(id);
+// async function add(user) {
+function add(user) {
+  return db('users').insert(user);
+  // const [id] = await db('users').insert(user);
+  // return findById(id);
 }
 
 function findBy() {
