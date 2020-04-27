@@ -13,15 +13,15 @@ router.get('/', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
-  // if (!req.body.username || !req.body.password) {
-  //   res.status(400);
-  //   res.send('Invalid details');
-  // } else { 
-    // Users.find(user => {e
-    //   if (user.username === req.body.username) {
-    //     res.json({ message: 'User already exists. Login or register.' })
-    //   }
-    // });
+  if (!req.body.username || !req.body.password) {
+    res.status(400);
+    res.send('Invalid details');
+  } else { 
+    Users.find(user => {e
+      if (user.username === req.body.username) {
+        res.json({ message: 'User already exists. Login or register.' })
+      }
+    });
     // const newUser = { username: req.body.username, password: req.body.password }
     Users.add(req.body)
     .then(saved => {
@@ -32,7 +32,7 @@ router.post('/register', (req, res) => {
     .catch(error => {
       res.status(500).json(error)
     })
-  // }
+  }
   // let user = req.body;
   // const hash = bcrypt.hashSync(user.password, 10); 
   // user.password = hash;

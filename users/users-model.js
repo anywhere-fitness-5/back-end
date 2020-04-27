@@ -1,4 +1,5 @@
 const db = require('../data/dbConfig');
+const bcrypt = require('bcrypt');
 
 module.exports = {
   add, 
@@ -7,12 +8,19 @@ module.exports = {
 }
 
 function find() {
-  return db('users').select('username')
+  return db('users').select('id', 'username', 'fname', 'lname')
 }
 
 // async function add(user) {
 function add(user) {
-  return db('users').insert(user);
+  const username = user.username;
+  const password = user.password;
+  const fname = user.fname;
+  const lname = user.lname;
+  return db('users').insert({
+    username, fname, lname,
+    password: bcrypt.hashSync(password, 10)
+  });
   // const [id] = await db('users').insert(user);
   // return findById(id);
 }
