@@ -32,6 +32,12 @@ return knex.schema
           .onUpdate('CASCADE')
           .onDelete('CASCADE');
       class_schedule
+        .integer('instructorid')
+        .references('id')
+        .inTable('users')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
+      class_schedule
         .datetime('start_date');
       class_schedule
         .datetime('end_date');
