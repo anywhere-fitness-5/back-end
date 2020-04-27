@@ -17,7 +17,7 @@ router.post('/register', (req, res) => {
     res.status(400);
     res.send('Invalid details');
   } else { 
-    // Users.find(user => {
+    // Users.find(user => {e
     //   if (user.username === req.body.username) {
     //     res.json({ message: 'User already exists. Login or register.' })
     //   }
