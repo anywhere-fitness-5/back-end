@@ -13,16 +13,16 @@ router.get('/', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
-  if (!req.body.id || !req.body.password) {
+  if (!req.body.username || !req.body.password) {
     res.status(400);
     res.send('Invalid details');
   } else {
     Users.find(user => {
-      if (user.id === req.body.id) {
+      if (user.username === req.body.username) {
         res.json({ message: 'User already exists. Login or register.' })
       }
     });
-    const newUser = { id: req.body.id, password: req.body.password }
+    const newUser = { username: req.body.username, password: req.body.password }
     Users.add(user)
     .then(saved => {
       res.status(201).json(saved);
