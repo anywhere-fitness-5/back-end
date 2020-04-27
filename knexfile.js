@@ -13,6 +13,12 @@ module.exports = {
     },
     seeds: {
       directory: './data/seeds'
+    },
+     //need to ensure foreign key restrictions work
+     pool: {
+      afterCreate: (conn, done) => {
+        conn.run('PRAGMA foreign_keys = ON', done);//turns on the foreign key enforcement
+      }
     }
   },
 
@@ -24,6 +30,12 @@ module.exports = {
     },
     seeds: {
       directory: './data/seeds'
+    }
+  },
+   //need to ensure foreign key restrictions work
+   pool: {
+    afterCreate: (conn, done) => {
+      conn.run('PRAGMA foreign_keys = ON', done);//turns on the foreign key enforcement
     }
   }
 
