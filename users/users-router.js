@@ -23,7 +23,7 @@ router.post('/register', (req, res) => {
     //   }
     // });
     // const newUser = { username: req.body.username, password: req.body.password }
-    Users.add(user)
+    Users.add(req.body)
     .then(saved => {
       res.status(201).json({ message: 'user added!'});
       // req.session.user = newUser;

@@ -14,9 +14,9 @@ exports.up = function(knex) {
       .string('password', 30)
       .notNullable();
     users
-      .string('firstname', 30);
+      .string('fname', 30);
     users
-      .string('lastname', 30);
+      .string('lname', 30);
   })
 };
 
