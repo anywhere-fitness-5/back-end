@@ -16,7 +16,7 @@ router.post('/register', (req, res) => {
   if (!req.body.username || !req.body.password) {
     res.status(400);
     res.send('Invalid details');
-  } else {
+  } else { 
     // Users.find(user => {
     //   if (user.username === req.body.username) {
     //     res.json({ message: 'User already exists. Login or register.' })
@@ -33,9 +33,9 @@ router.post('/register', (req, res) => {
       res.status(500).json(error)
     })
   }
-  let user = req.body;
-  const hash = bcrypt.hashSync(user.password, 10); 
-  user.password = hash;
+  // let user = req.body;
+  // const hash = bcrypt.hashSync(user.password, 10); 
+  // user.password = hash;
   
 });
 
