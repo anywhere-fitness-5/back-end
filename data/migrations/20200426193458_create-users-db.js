@@ -7,7 +7,8 @@ exports.up = function(knex) {
     users
       .increments();
     users
-      .unique('username', 30)
+      .string('username', 30)
+      .unique()
       .notNullable();      
     users
       .string('password', 30)
