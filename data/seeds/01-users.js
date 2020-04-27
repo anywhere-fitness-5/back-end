@@ -9,8 +9,6 @@ exports.seed = function(knex) {
       return knex('users').insert([
         { username: "edmadrigal", password: password1, fname: "Eddie", lname: "Madrigal" },
         { username: "erikamadrigal", password: password2, fname: "Erika", lname: "Madrigal" }
-       
-        
       ]);
     });
 };
