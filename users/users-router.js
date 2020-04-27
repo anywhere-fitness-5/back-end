@@ -19,11 +19,11 @@ router.post('/register', (req, res) => {
   Users.findBy(req.body.username)
     .then(data => {
       if (data.username == req.body.username) {
-        res.status(200).json({ message: 'duplicate username found'})
+        res.status(400).json({ message: 'duplicate username found'});
       }      
     })
   Users.add(req.body)
-  .then(saved => {
+  .then(() => {
     res.status(201).json({ message: 'user added!'});
   })
   .catch(error => {
