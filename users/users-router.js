@@ -2,7 +2,6 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const Users = require('./users-model');
 
-// for endpoints beginning with /api/users
 
 router.get('/', (req, res) => {
   Users.find()
@@ -16,21 +15,20 @@ router.post('/register', (req, res) => {
   if (!req.body.username || !req.body.password) {
     res.status(400);
     res.send('Invalid details');
-  } else { 
-    Users.filter(user => {
-      if (user.username === req.body.username) {
-        res.json({ message: 'User already exists. Login or register.' })
-      } else {
-        Users.add(req.body)
-          .then(saved => {
-            res.status(201).json({ message: 'user added!'});
-          })
-          .catch(error => {
-            res.status(500).json(error)
-          })
-      }
-    });    
-  }  
+  }
+  Users.findBy(req.body.username)
+    .then(data => {
+      if (data.username == req.body.username) {
+        res.status(200).json({ message: 'duplicate username found'})
+      }      
+    })
+  Users.add(req.body)
+  .then(saved => {
+    res.status(201).json({ message: 'user added!'});
+  })
+  .catch(error => {
+    res.status(500).json(error)
+  })
 });
 
 router.post('/login', (req, res) => {
