@@ -9,29 +9,28 @@ router.get('/', (req, res) => {
       res.json(users)
     })
     .catch(err => res.send(err));
-});
+}); 
 
 router.post('/register', (req, res) => {
   const userInfo = req.body;
-  if (!req.body.username || !req.body.password) {
+  if (!userInfo.username || !userInfo.password) {
     res.status(400);
     res.send('Invalid details');
   }
-  Users.findBy(userInfo.username)
-    .then(data => {
-      if (data.username == req.body.username) {
-        res.status(400).json({ message: 'duplicate username found'});
-      } else {
-      Users.add(userInfo)
-        .then(() => {
-          res.status(201).json({ message: 'user added!'});
+  Users.findBy(req.body.username)
+    .then(() => {
+        Users.add(req.body)
+        .then(saved => {
+          res.status(201).json(saved);
         })
         .catch(error => {
-          res.status(500).json(error)
-        })
-      }  
+          console.log(error);
+          res.status(500).json({ errorMessage: error.message });
+        });
     })
-  
+    .catch(err => {
+      res.status(500).json({ errorMessage: err.message })
+    })
 });
 
 router.post('/login', (req, res) => {

@@ -8,11 +8,10 @@ module.exports = {
 }
 
 function find() {
-  return db('users').select('*')
+  return db('users').select('id', 'username', 'password', 'lname', 'fname')
 }
 
-// async function add(user) {
-function add(user) {
+async function add(user) {
   const username = user.username;
   const password = user.password;
   const fname = user.fname;
@@ -21,8 +20,6 @@ function add(user) {
     username, fname, lname,
     password: bcrypt.hashSync(password, 10)
   });
-  // const [id] = await db('users').insert(user);
-  // return findById(id);
 }
 
 function findBy(username) {
