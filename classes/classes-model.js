@@ -3,7 +3,8 @@ const db = require('../data/dbConfig');
 module.exports = {
   add,
   find,
-  updateClass
+  updateClass,
+  deleteclass
 }
 
 function find() {
@@ -22,4 +23,10 @@ function updateClass(changes, id) {
   return db('classes')
     .update(changes)
     .where({ id })
+}
+
+function deleteclass(id) {
+  return db('classes')
+    .where({ id })
+    .del()
 }

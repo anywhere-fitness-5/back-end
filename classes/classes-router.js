@@ -16,7 +16,6 @@ router.post('/add', (req, res) => {
     res.status(201).json({ message: 'class added!'});
   })
   .catch(error => {
-    console.log(error);
     res.status(500).json({ errorMessage: error.message });
   });
 });
@@ -28,7 +27,21 @@ router.put('/update/:id', async(req, res) => {
   .then(() => {
     res.status(200).json({ message: 'class updated!' })
   })
+  .catch(error => {
+    res.status(500).json({ errorMessage: error.message });
+  });
 
+})
+
+router.delete('/remove/:id', (req, res) => {
+  const { id } = req.params;
+  Classes.deleteclass(id)
+    .then(() => {
+      res.status(200).json({ message: 'class deleted!' })
+    })
+    .catch(error => {
+      res.status(500).json({ errorMessage: error.message });
+    });
 })
 
 module.exports = router;
