@@ -21,7 +21,7 @@ router.post('/register', (req, res) => {
     .then(() => {
         Users.add(req.body)
         .then(saved => {
-          res.status(201).json(saved);
+          res.status(201).json({ message: 'user added!'});
         })
         .catch(error => {
           console.log(error);
