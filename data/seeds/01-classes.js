@@ -5,12 +5,11 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('classes').insert([
-        { classname: 'Pure Barre' },
-        { classname: 'Yoga' },
-        { classname: 'Water Aerobics' },
-        { classname: 'Walking' },
-        { classname: 'Dancing' },
-        { classname: 'Swimming' },
+        { classname: 1 },
+        { classname: 2 },
+        { classname: 3 },
+        { classname: 4 },
+        { classname: 5 }
       ]);
     });
 };
