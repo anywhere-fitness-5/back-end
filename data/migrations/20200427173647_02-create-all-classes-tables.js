@@ -44,10 +44,10 @@ return knex.schema
           .date('start_date');
         class_schedule
           .date('end_date');
-        // class_schedule
-        //   .datetime('start_time');
-        // class_schedule
-        //   .datetime('end_time');
+        class_schedule
+          .time('start_time');
+        class_schedule
+          .time('end_time');
         })
      
   .createTable('user_role',user_role =>{
