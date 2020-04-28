@@ -27,7 +27,7 @@ router.post('/register', (req, res) => {
           console.log(error);
           res.status(500).json({ errorMessage: error.message });
         });
-    })
+    }) 
     .catch(err => {
       res.status(500).json({ errorMessage: err.message })
     })

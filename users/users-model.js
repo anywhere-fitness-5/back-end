@@ -17,9 +17,22 @@ function add(user) {
   const password = user.password;
   const fname = user.fname;
   const lname = user.lname;
-  return db('users').insert({
-    username, fname, lname,
-    password: bcrypt.hashSync(password, 10)
+  let roleid = 1;
+  if (user.roleid) {
+    roleid = user.roleid;
+  } 
+  return db('users')
+    .insert({
+      username, fname, lname,
+      password: bcrypt.hashSync(password, 10)
+    })
+    .returning('id')
+    .then(() => {
+      return db('role_user')
+        .insert({
+          userid: id,
+          roleid
+        })
   });
 }
 
