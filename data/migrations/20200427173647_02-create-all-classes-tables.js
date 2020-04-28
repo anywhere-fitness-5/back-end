@@ -97,13 +97,13 @@ return knex.schema
           .inTable('users')
           .onDelete('cascade')
           .onUpdate('CASCADE');
-        user_registration
-          .integer('scheduleid')
-          .unsigned()
-          .references('id')
-          .inTable('class_schedule')
-          .onDelete('cascade')
-          .onUpdate('CASCADE');
+        // user_registration
+        //   .integer('scheduleid')
+        //   .unsigned()
+        //   .references('classid')
+        //   .inTable('class_schedule')
+        //   .onDelete('cascade')
+        //   .onUpdate('CASCADE');
       })
 
      
