@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const Roles = require('./roles-model');
 
-
 router.get('/', (req, res) => {
   Roles.find()
     .then(roles => {
