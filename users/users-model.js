@@ -27,10 +27,10 @@ function add(user) {
       username, fname, lname,
       password: bcrypt.hashSync(password, 10)
     })
-    .then(() => {
+    .then(res => {
       return db('role_user')
         .insert({
-          userid: id,
+          userid: res[0],
           roleid
         })
   });
