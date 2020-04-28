@@ -10,4 +10,15 @@ router.get('/', (req, res) => {
     .catch(err => res.send(err));
 }); 
 
+router.post('/add', (req, res) => {
+  Classes.add(req.body)
+  .then(() => {
+    res.status(201).json({ message: 'class added!'});
+  })
+  .catch(error => {
+    console.log(error);
+    res.status(500).json({ errorMessage: error.message });
+  });
+});
+
 module.exports = router;
