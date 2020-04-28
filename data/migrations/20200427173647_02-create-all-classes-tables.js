@@ -41,13 +41,13 @@ return knex.schema
             .onDelete('CASCADE')
             .onUpdate('CASCADE');
         class_schedule
-          .datetime('start_date');
+          .date('start_date');
         class_schedule
-          .datetime('end_date');
-        class_schedule
-          .datetime('start_time');
-        class_schedule
-          .datetime('end_time');
+          .date('end_date');
+        // class_schedule
+        //   .datetime('start_time');
+        // class_schedule
+        //   .datetime('end_time');
         })
      
   .createTable('user_role',user_role =>{
