@@ -10,6 +10,14 @@ router.get('/', (req, res) => {
     .catch(err => res.send(err));
 }); 
 
+router.get('/:id', (req, res) => {
+  Classes.findById(req.params.id)
+    .then(classInfo => {
+      res.json(classInfo)
+    })
+    .catch(err => res.send(err));
+})
+
 router.post('/add', (req, res) => {
   Classes.add(req.body)
   .then(() => {
