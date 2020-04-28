@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt');
 module.exports = {
   add, 
   find,
-  findBy
+  findBy,
+  findById
 }
 
 function find() {
@@ -27,4 +28,8 @@ function findBy(username) {
     .where({username})
     .select('id', 'fname', 'lname', 'username')
     .first()
+}
+
+function findById() {
+  
 }

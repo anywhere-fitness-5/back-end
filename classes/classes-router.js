@@ -21,4 +21,14 @@ router.post('/add', (req, res) => {
   });
 });
 
+router.put('/update/:id', async(req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  Classes.updateClass(body, id)
+  .then(() => {
+    res.status(200).json({ message: 'class updated!' })
+  })
+
+})
+
 module.exports = router;

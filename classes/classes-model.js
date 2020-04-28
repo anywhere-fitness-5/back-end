@@ -1,8 +1,9 @@
 const db = require('../data/dbConfig');
 
 module.exports = {
+  add,
   find,
-  add
+  updateClass
 }
 
 function find() {
@@ -15,4 +16,10 @@ function add(classInfo) {
   return db('classes').insert({
     classname, classdescription
   });
+}
+
+function updateClass(changes, id) {
+  return db('classes')
+    .update(changes)
+    .where({ id })
 }
