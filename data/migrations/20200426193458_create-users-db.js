@@ -7,16 +7,16 @@ exports.up = function(knex) {
     users
       .increments();
     users
-      .string('username', 30)
+      .string('username', 255)
       .notNullable()
       .unique();
     users
-      .string('password', 30)
+      .string('password',255)
       .notNullable();
     users
-      .string('fname', 30);
+      .string('fname', 255);
     users
-      .string('lname', 30);
+      .string('lname', 255);
   })
 
   
