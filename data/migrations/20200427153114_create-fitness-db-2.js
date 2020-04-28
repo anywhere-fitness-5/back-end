@@ -1,102 +1,108 @@
-
 exports.up = function(knex) {
   return knex.schema
-
-  // client table
-  .createTable('client', client => {
-    client
+  .createTable('users', users => {
+    users
       .increments();
-    client
+    users
       .string('username', 30)
-      .unique()
-      .notNullable();      
-    client
+      .notNullable()
+      .unique();
+    users
       .string('password', 128)
       .notNullable();
-    client
-      .string('name', 30);
+    users
+      .string('fname', 30);
+    users
+      .string('lname', 30);
   })
 
-  // instructor
-  .createTable('instructor', instructor => {
-    instructor
+  .createTable('role',role => {
+    role.increments();
+    role
+      .string('title')
+      .notNullable()
+      .unique();
+  })
+
+  .createTable('class_schedule', class_schedule => {
+    class_schedule
       .increments();
-    instructor 
-      .string('username', 30)
-      .unique()
-      .notNullable();      
-    instructor
-      .string('password', 128)
-      .notNullable();
-    instructor
-      .string('name', 30);
+    class_schedule 
+      .integer('instructorid')
+      .references('id')
+      .inTable('users')
+      .onDelete('cascade');
+    class_schedule 
+      .integer('classid')
+      .references('id')
+      .inTable('classes')
+      .onDelete('cascade');
+    class_schedule
+      .datetime('start_date');
+    class_schedule
+      .datetime('end_date');
+    class_schedule
+      .datetime('start_time');
+    class_schedule
+      .datetime('end_time');
+    })
+
+  .createTable('classes', classes => {
+    classes
+    .increments();
+    classes
+      .integer('classname')
+      .unsigned()
+      .notNullable()
+      .unique();
   })
 
-  // class
-  .createTable('class', fitness_class => {
-    fitness_class
-      .increments();
-    fitness_class
-      .integer('instructor_id')
-      .unsigned()
-      .index()
-      .inTable('instructor')
-      .references('id');
-    fitness_class
-      .integer('client_id')
-      .unsigned()
-      .index()
-      .inTable('client')
-      .references('id');
-    fitness_class
-      .string('name', 30);
-    fitness_class 
-      .integer('num_registered');
-    fitness_class 
-      .integer('max_size');
-    fitness_class
-      .string('type');
-    fitness_class
-      .string('time');
-    fitness_class
-      .string('date');
-    fitness_class
-      .string('duration');
-    fitness_class
-      .string('intensity');
-    fitness_class
-      .string('location');
+  .createTable('user_role',user_role =>{
+   user_role
+    .integer('userid')
+    .references('id')
+    .inTable('users')
+    .onDelete('cascade');
+   user_role
+    .integer('roleid')
+    .references('id')
+    .inTable('role')
+    .onDelete('cascade');
+  })
+  
+  .createTable('class_user',class_user => {
+    class_user
+      .integer('classid')
+      .references('id')
+      .inTable('classes')
+      .onDelete('cascade');
+    class_user
+      .integer('userid')
+      .references('id')
+      .inTable('users')
+      .onDelete('cascade');
   })
 
-  .createTable('user_class', user_class => {
-    user_class
-      .increments()
-    user_class
-      .integer('instructor_id')
-      .unsigned()
-      .index()
-      .inTable('instructor')
-      .references('id');
-    user_class
-      .integer('client_id')
-      .unsigned()
-      .index()
-      .inTable('client')
-      .references('id');
-    user_class  
-      .integer('class_id')
-      .unsigned()
-      .index()
-      .inTable('class')
-      .references('id');
+  .createTable('user_registration', user_registration => {
+    user_registration
+      .integer('userid')
+      .references('id')
+      .inTable('users')
+      .onDelete('cascade');
+    user_registration
+      .integer('scheduleid')
+      .references('id')
+      .inTable('class_schedule')
+      .onDelete('cascade');
   })
-
+  
 };
-
 exports.down = function(knex) {
   return knex.schema
-    .dropTableIfExists('user_class')
-    .dropTableIfExists('class')
-    .dropTableIfExists('instructor')
-    .dropTableIfExists('client')
+    .dropTableIfExists('users')
+    .dropTableIfExists('role')
+    .dropTableIfExists('user_role')
+    .dropTableIfExists('class_user')
+    .dropTableIfExists('classes')
+    .dropTableIfExists('class_schedule');
 };
