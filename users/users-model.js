@@ -8,7 +8,7 @@ module.exports = {
 }
 
 function find() {
-  return db('users').select('id', 'username', 'fname', 'lname')
+  return db('users').select('*')
 }
 
 // async function add(user) {
