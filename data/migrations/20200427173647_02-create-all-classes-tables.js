@@ -53,8 +53,10 @@ return knex.schema
       })
 
   .createTable('user_role',user_role =>{
+    user_role.increments();
+    
      user_role
-      .integer('userid').primary()
+      .integer('userid')
      user_role
       .foreign('userid')
       .references('id')
