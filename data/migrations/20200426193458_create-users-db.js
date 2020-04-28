@@ -5,7 +5,7 @@ exports.up = function(knex) {
   // users table
   .createTable('users', users => {
     users
-      .increments();
+      .increments('id');
     users
       .string('username', 255)
       .notNullable()
