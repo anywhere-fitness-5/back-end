@@ -1,14 +1,20 @@
 const bcrypt = require('bcrypt');
-const password1 = bcrypt.hashSync('password1', 10);
-const password2 = bcrypt.hashSync('password2', 10);
+
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('users').del()
+  return knex('users').truncate()
     .then(function () {
       // Inserts seed entries
       return knex('users').insert([
-        { username: "edmadrigal", password: password1, fname: "Eddie", lname: "Madrigal" },
-        { username: "erikamadrigal", password: password2, fname: "Erika", lname: "Madrigal" }
+        {username: "bobupndown", password: hasher("password1"), fname:"Bob", lname:"daBuilder"},
+        {username:"superman", password: hasher("passowrd2"), fname:"Clark", lname:"Kent" },
+        {username: "spiderman", password: hasher("passowrd3"), fname: "Peter", lname:"Parker"},
+        {username:"firerider", password: hasher("passowrd4"), fname:"Ghost", lname:"Rider"}
+
       ]);
     });
 };
+
+function hasher(password) {
+  return bcrypt.hashSync(password, 10)
+} 

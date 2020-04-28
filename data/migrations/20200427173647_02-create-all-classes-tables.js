@@ -9,34 +9,39 @@ return knex.schema
           .notNullable()
           .unique();
       })
-   
-      .createTable('classes', classes => {
+    .createTable('classes', classes => {
         classes
         .increments();
         classes
-          .integer('classname')
+          .string('classname')
           .unsigned()
           .notNullable()
           .unique();
+        classes
+          .integer('intensity')
+          .unsigned()
+          .notNullable();
       })
      
-      .createTable('class_schedule', class_schedule => {
+    .createTable('class_schedule', class_schedule => {
       class_schedule
           .increments();
-   
       class_schedule
-          //.integer('instructorid')
-          .integer('classid')
+          .integer('instructorid')
+          .unsigned();
+      class_schedule
+          .foreign('instructorid')
           .references('id')
-          .inTable('classes')
-          .onUpdate('CASCADE')
+          .inTable('users')
           .onDelete('CASCADE');
       class_schedule
-        .integer('instructorid')
-        .references('id')
-        .inTable('users')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE');
+          .integer('classid')
+          .unsigned();
+      class_schedule
+          .foreign('classid')
+          .references('id')
+          .inTable('classes')
+          .onDelete('CASCADE');
       class_schedule
         .datetime('start_date');
       class_schedule
@@ -47,48 +52,69 @@ return knex.schema
         .datetime('end_time');
       })
 
-      .createTable('user_role',user_role =>{
-        user_role
-         .integer('userid')
-         .primary()
-         .unsigned()
-         .references('id')
-         .inTable('users');
-        user_role
-         .integer('roleid')
-         .unsigned()
-         .references('id')
-         .inTable('role')
-         .onUpdate('CASCADE')
-         .onDelete('CASCADE');
+  .createTable('user_role',user_role =>{
+     user_role
+      .integer('userid').primary()
+     user_role
+      .foreign('userid')
+      .references('id')
+      .inTable('users')
+      .onDelete('CASCADE');
+     user_role
+      .integer('roleid')
+      .unsigned();
+     user_role
+      .foreign('roleid')
+      .references('id')
+      .inTable('role')
+      .onDelete('CASCADE');
        })
 
-       .createTable('class_user',class_user => {
+    .createTable('class_user',class_user => {
         class_user
           .integer('classid')
-          .primary()
+          .unsigned();
+        class_user
+          .foreign('classid')
           .references('id')
-          .inTable('classes');
+          .inTable('classes')
+          .onDelete('cascade');
         class_user
           .integer('userid')
-          .notNullable()
+          .unsigned()
+        class_user
+          .foreign('userid')
           .references('id')
           .inTable('users')
-          .onUpdate('CASCADE')
           .onDelete('CASCADE');
+      })
+
+  .createTable('user_registration', user_registration => {
+        user_registration
+          .integer('userid')
+          .unsigned();
+        user_registration
+          .foreign('userid')
+          .references('id')
+          .inTable('users')
+          .onDelete('cascade');
+        user_registration
+          .integer('scheduleid')
+          .unsigned()
+        user_registration
+          .foreign('scheduleid')
+          .references('id')
+          .inTable('class_schedule')
+          .onDelete('cascade');
       })
 };
 
 exports.down = function(knex) {
   return knex.schema 
+  .dropTableIfExists('user_registration')
   .dropTableIfExists('class_user')
   .dropTableIfExists('user_role')
   .dropTableIfExists('class_schedule')
   .dropTableIfExists('classes')
   .dropTableIfExists('role');
-//   .dropTableIfExists('role')
-//   .dropTableIfExists('classes')
-//   .dropTableIfExists('class_schedule')
-//   .dropTableIfExists('user_role')
-//   .dropTableIfExists('class_user');
 };
