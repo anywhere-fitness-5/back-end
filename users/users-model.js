@@ -22,11 +22,11 @@ function add(user) {
     roleid = user.roleid;
   } 
   return db('users')
+    .returning('id')
     .insert({
       username, fname, lname,
       password: bcrypt.hashSync(password, 10)
     })
-    .returning('id')
     .then(() => {
       return db('role_user')
         .insert({
