@@ -5,5 +5,5 @@ module.exports = {
 }
 
 function find() {
-  return db('classes').select('id', 'classname')
+  return db('classes').select('*')
 }
