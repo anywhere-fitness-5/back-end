@@ -11,7 +11,7 @@ function find() {
   return db('users').select('id', 'username', 'password', 'lname', 'fname')
 }
 
-async function add(user) {
+function add(user) {
   const username = user.username;
   const password = user.password;
   const fname = user.fname;
@@ -24,6 +24,7 @@ async function add(user) {
 
 function findBy(username) {
   return db('users')
-    .where({ username })
-    .first();
+    .where({username})
+    .select('id', 'fname', 'lname', 'username')
+    .first()
 }
