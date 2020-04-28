@@ -23,33 +23,6 @@ return knex.schema
           .notNullable();
       })
      
-    .createTable('class_schedule', class_schedule => {
-      class_schedule
-          .increments('id');
-      class_schedule
-          .integer('instructorid')
-          .unsigned()
-          .references('id')
-          .inTable('users')
-          .onDelete('CASCADE')
-          .onUpdate('CASCADE');
-      class_schedule
-          .integer('classid')
-          .unsigned()
-          .references('id')
-          .inTable('classes')
-          .onDelete('CASCADE')
-          .onUpdate('CASCADE');
-      class_schedule
-        .datetime('start_date');
-      class_schedule
-        .datetime('end_date');
-      class_schedule
-        .datetime('start_time');
-      class_schedule
-        .datetime('end_time');
-      })
-
   .createTable('user_role',user_role =>{
     user_role.increments('id');
      user_role
@@ -89,7 +62,7 @@ return knex.schema
   .createTable('user_registration', user_registration => {
 
     user_registration.increments('id');
-    
+
         user_registration
           .integer('userid')
           .unsigned()
@@ -105,6 +78,33 @@ return knex.schema
           .onDelete('cascade')
           .onUpdate('CASCADE');
       })
+
+      .createTable('class_schedule', class_schedule => {
+        class_schedule
+            .increments('id');
+        class_schedule
+            .integer('instructorid')
+            .unsigned()
+            .references('id')
+            .inTable('users')
+            .onDelete('CASCADE')
+            .onUpdate('CASCADE');
+        class_schedule
+            .integer('classid')
+            .unsigned()
+            .references('id')
+            .inTable('classes')
+            .onDelete('CASCADE')
+            .onUpdate('CASCADE');
+        class_schedule
+          .datetime('start_date');
+        class_schedule
+          .datetime('end_date');
+        class_schedule
+          .datetime('start_time');
+        class_schedule
+          .datetime('end_time');
+        })
 };
 
 exports.down = function(knex) {
