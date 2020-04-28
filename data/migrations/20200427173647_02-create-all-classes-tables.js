@@ -3,7 +3,7 @@ exports.up = function(knex) {
 return knex.schema
 
     .createTable('role',role => {
-        role.increments();
+        role.increments('id');
         role
           .string('title')
           .notNullable()
@@ -11,7 +11,7 @@ return knex.schema
       })
     .createTable('classes', classes => {
         classes
-        .increments();
+        .increments('id');
         classes
           .string('classname')
           .unsigned()
@@ -22,91 +22,91 @@ return knex.schema
           .unsigned()
           .notNullable();
       })
-     
-    .createTable('class_schedule', class_schedule => {
-      class_schedule
-          .increments();
-      class_schedule
-          .integer('instructorid')
-          .unsigned();
-      class_schedule
-          .foreign('instructorid')
-          .references('id')
-          .inTable('users')
-          .onDelete('CASCADE');
-      class_schedule
-          .integer('classid')
-          .unsigned();
-      class_schedule
-          .foreign('classid')
-          .references('id')
-          .inTable('classes')
-          .onDelete('CASCADE');
-      class_schedule
-        .datetime('start_date');
-      class_schedule
-        .datetime('end_date');
-      class_schedule
-        .datetime('start_time');
-      class_schedule
-        .datetime('end_time');
-      })
 
+      .createTable('class_schedule', class_schedule => {
+        class_schedule
+            .increments('id');
+        class_schedule
+            .integer('instructorid')
+            .unsigned()
+            .references('id')
+            .inTable('users')
+            .onDelete('CASCADE')
+            .onUpdate('CASCADE');
+        class_schedule
+            .integer('classid')
+            .unsigned()
+            .references('id')
+            .inTable('classes')
+            .onDelete('CASCADE')
+            .onUpdate('CASCADE');
+        class_schedule
+          .date('start_date');
+        class_schedule
+          .date('end_date');
+        class_schedule
+          .time('start_time');
+        class_schedule
+          .time('end_time');
+        })
+     
   .createTable('user_role',user_role =>{
+    user_role.increments('id');
      user_role
-      .integer('userid').primary()
-     user_role
-      .foreign('userid')
+      .integer('userid')
+      .unsigned()
       .references('id')
       .inTable('users')
-      .onDelete('CASCADE');
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE');
      user_role
       .integer('roleid')
-      .unsigned();
-     user_role
-      .foreign('roleid')
+      .unsigned()
       .references('id')
       .inTable('role')
-      .onDelete('CASCADE');
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE');
        })
 
     .createTable('class_user',class_user => {
+      class_user.increments('id');
         class_user
           .integer('classid')
-          .unsigned();
-        class_user
-          .foreign('classid')
+          .unsigned()
           .references('id')
           .inTable('classes')
-          .onDelete('cascade');
+          .onDelete('cascade')
+          .onUpdate('CASCADE');
         class_user
           .integer('userid')
           .unsigned()
-        class_user
-          .foreign('userid')
           .references('id')
           .inTable('users')
-          .onDelete('CASCADE');
+          .onDelete('CASCADE')
+          .onUpdate('CASCADE');
       })
 
   .createTable('user_registration', user_registration => {
+
+    user_registration.increments('id');
+
         user_registration
           .integer('userid')
-          .unsigned();
-        user_registration
-          .foreign('userid')
+          .unsigned()
           .references('id')
           .inTable('users')
-          .onDelete('cascade');
-        user_registration
-          .integer('scheduleid')
-          .unsigned()
-        user_registration
-          .foreign('scheduleid')
-          .references('id')
-          .inTable('class_schedule')
-          .onDelete('cascade');
+          .onDelete('cascade')
+          .onUpdate('CASCADE');
+        // user_registration
+        //   .integer('scheduleid')
+        //   .unsigned()
+        //   .references('classid')
+        //   .inTable('class_schedule')
+        //   .onDelete('cascade')
+        //   .onUpdate('CASCADE');
       })
+
+     
 };
 
 exports.down = function(knex) {
