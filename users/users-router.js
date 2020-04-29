@@ -22,7 +22,7 @@ router.post('/login', (req, res) => {
           res.status(400).json({ message: 'athentication failed'})
         }
       } else {
-        res.status(400).json({ message: 'user not found!' })
+        res.status(400).json({ message: 'oopsie daisy' })
       }
     })
     .catch(error => {
