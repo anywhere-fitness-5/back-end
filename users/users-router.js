@@ -8,7 +8,6 @@ router.get('/', (req, res) => {
       res.json(users)
     })
     .catch(err => res.send(err));
-
   
 }); 
 
@@ -26,11 +25,21 @@ router.post('/login', (req, res) => {
       } else {
         res.status(400).json({ message: 'user not found!' })
       }
-      
     })
     .catch(error => {
       res.status(500).json(error.message)
     })
 });
+
+router.post('/register', (req, res) => {
+  let postData = req.body;
+  Users.add(postData)
+  .then(users => {
+    res.status(201).json({ message: 'user added!'})
+  })
+  .catch(error => {
+    res.status(500).json({ message: 'Failed to create user.' })
+  })
+})
 
 module.exports = router;
