@@ -17,6 +17,10 @@ exports.up = function(knex) {
       .string('fname', 255);
     users
       .string('lname', 255);
+    users
+      .string('email', 255)
+      .notNullable()
+      .unique();
   })
 
   
