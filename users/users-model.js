@@ -39,7 +39,7 @@ function add(user) {
 function findBy(username) {
   return db('users')
     .where({username})
-    .select('id', 'fname', 'lname', 'username')
+    .select('id', 'fname', 'lname', 'username', 'password')
     .first()
 }
 
