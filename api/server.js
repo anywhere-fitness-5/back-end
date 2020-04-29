@@ -11,9 +11,10 @@ server.use(cors());
 server.use(express.json());
 
 server.use('/api/users', usersRouter);
+//server.use('https://aw-fitness-5.herokuapp.com/api/users', usersRouter);
 
 server.use('/', (req, res) => {
-  res.send("API up ...");
+  res.send("=== API is running ===");
 }) 
 
 module.exports = server;

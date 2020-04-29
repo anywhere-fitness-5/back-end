@@ -11,6 +11,7 @@ fname       varchar
 lname       varchar
 password    varchar
 username    varchar
+email       varchar
 
 *role - roles available to registered users(client or instructor)
 id          int4 (auto increment) PK
