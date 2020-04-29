@@ -16,9 +16,8 @@ router.post('/login', (req, res) => {
     .first()
     .then(user => {
       if (user != null) {
-        // res.status(200).json({ message: 'user found' })
         if (bcrypt.compareSync(req.body.password, user.password)) {
-          res.status(200).json({ message: 'password ok'})
+          res.status(200).json({ message: 'login good!'})
         } else {
           res.status(400).json({ message: 'athentication failed'})
         }
