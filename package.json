@@ -4,8 +4,12 @@
   "description": "Unit 4 Dev Repo Space to create back end functionality for anywhere fitness app",
   "main": "index.js",
   "scripts": {
+    "test": "jest --watch",
     "server": "nodemon index.js",
     "start": "node index.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -30,6 +34,9 @@
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3"
+    "cross-env": "^7.0.2",
+    "jest": "^25.5.2",
+    "nodemon": "^2.0.3",
+    "supertest": "^4.0.2"
   }
 }

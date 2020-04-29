@@ -21,9 +21,13 @@ server.use('/api/classes', classesRouter);
 
 server.use('/api/addClass', secureAddClassRouter);
 
-server.use('/', (req, res) => {
-  res.send("=== API is running ===");
-}) 
+// server.use('/', (req, res) => {
+//   res.send("=== API is running ===");
+// }) 
+
+server.get("/", (req, res) => {
+  res.status(200).json({api: "*** server running ***"});
+})
 
 module.exports = server;
 
