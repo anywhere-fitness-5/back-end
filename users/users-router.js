@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const bcrypt = require('bcrypt');
 const Users = require('./users-model');
 
 
@@ -37,12 +36,17 @@ router.post('/login', (req, res) => {
   Users.findBy(req.body.username)
     .first()
     .then(user => {
-      if (user) {
-        res.status(200).json({
-          message: `Welcome ${user.username}!`
-        })
-      } else {
-        res.status(401).json({ message: 'Invalid Credentials!' })
+      if (user == null) {
+        res.status(400).json({ message: 'user not found'})
+      }
+      try {
+        if (bcrypt.compareSync(req.body.password, user.password)) {
+          res.json({ message: 'Login Success!'})
+        } else {
+          res.json({ message: 'Invalid Credentials!' })
+        }
+      } catch {
+        res.status(500).json()
       }
     })
     .catch(error => {
