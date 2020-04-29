@@ -21,7 +21,26 @@ router.post('/register', (req, res) => {
   .catch(error => {
     res.status(500).json({ message: 'could not create user.' })
   })
-})
+});
+
+router.post('/login', (req, res) => {
+  Users.findBy(req.body.username)
+    .first()
+    .then(user => {
+      if (user) {
+        if (bcrypt.compareSync(req.body.password, user.password)) {
+          res.status(200).json({ message: 'logged in successfully'})
+          } else {
+           res.status(400).json({ message: 'could find that user or password'})
+          }
+        }else{
+        res.status(400).json({ message: 'could find that user or password' })
+        }
+      })
+      .catch(error => {
+        res.status(500).json(error.message)
+    });
+});
 
 
 module.exports = router;

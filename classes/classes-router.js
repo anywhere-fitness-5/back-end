@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const Classes = require('./classes-model');
+const authMW = require('../api/authMW');
 
-router.get('/', (req, res) => {
+router.get('/', authMW, (req, res) => {
     Classes.find()
       .then(classes => {
         res.json(classes)

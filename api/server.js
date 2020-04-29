@@ -26,3 +26,16 @@ server.use('/', (req, res) => {
 }) 
 
 module.exports = server;
+
+function verifyToken(req, res, next) {
+  // token should be sent in the headeer as value to Authorization
+  const bearerHeader = req.headers['authorization'];
+  if (typeof bearerHeader !== 'undefined') {
+    const bearer = bearerHeader.split(' ');
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    next();
+  } else {
+    res.sendStatus(403); // user is forbidden
+  }
+}
