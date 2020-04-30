@@ -42,5 +42,16 @@ router.post('/login', (req, res) => {
     });
 });
 
+router.post('/register', (req, res) => {
+  let postData = req.body;
+  Users.add(postData)
+  .then(users => {
+    res.status(201).json({ message: 'user added!'})
+  })
+  .catch(error => {
+    res.status(500).json({ message: 'Failed to create user.' })
+  })
+});
+
 
 module.exports = router;

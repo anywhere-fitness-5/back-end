@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
   add, 
-  find
+  find,
+  findBy
 }
 
 function find() {
@@ -35,6 +36,19 @@ function find() {
             roleid
           })
     });
+  }
+
+  function findBy(username) {
+    return db('users')
+      .where({username})
+      .select(
+        'id', 
+        'fname', 
+        'lname', 
+        'username', 
+        'password'
+        )
+      .first()
   }
 
   

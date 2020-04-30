@@ -11,4 +11,14 @@ describe('server', () => {
             expect(res.status).toBe(200);
         })
     })
+
+    describe('server response body', () => {
+        it('should return Message', async () => {
+            const res = await request(server).get('/')
+
+            expect(res.body.message).toBe("*** server running ***");
+        })
+    })
+
+   
 });

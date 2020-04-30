@@ -5,6 +5,7 @@ const helmet = require('helmet');
 
 const usersRouter = require('../users/users-router');
 const classesRouter = require('../classes/classes-router');
+const secureLoginRouter = require('../secure/getUsersRouter');
 const secureAddClassRouter = require('../secure/addClassesRouter');
 
 const server = express();
@@ -25,8 +26,10 @@ server.use('/api/addClass', secureAddClassRouter);
 //   res.send("=== API is running ===");
 // }) 
 
+server.use('/api/secure', secureLoginRouter);
+
 server.get("/", (req, res) => {
-  res.status(200).json({api: "*** server running ***"});
+  res.status(200).json({message: "*** server running ***"});
 })
 
 module.exports = server;
