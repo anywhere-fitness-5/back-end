@@ -20,7 +20,7 @@ describe('login', () => {
 
        expect(res.status).toBe(200);
     
-       expect(res.body).toHaveLength(4);
+       expect(res.body).toHaveLength(6);
    })
 
    it('/users returns user list', async () => {
