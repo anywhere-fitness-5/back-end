@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "cross-env NODE_ENV=development jest --testTimeout=10000",
+    "test:watch": "cross-env NODE_ENV=development jest --testTimeout=10000"
   },
   "repository": {
     "type": "git",
@@ -30,6 +32,14 @@
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3"
+    "jest": "^25.5.3",
+    "nodemon": "^2.0.3",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
