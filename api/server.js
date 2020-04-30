@@ -1,12 +1,13 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
+//const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const helmet = require('helmet');
 
-const usersRouter = require('../users/users-router');
+const usersRouter = require('../users/users-router.js');
 const classesRouter = require('../classes/classes-router');
+const rolesRouter = require('../roles/roles-router');
+const userroleRouter = require('../userrole/userrole-router');
 const secureLoginRouter = require('../secure/getUsersRouter');
-const secureAddClassRouter = require('../secure/addClassesRouter');
 
 const server = express();
 
@@ -15,27 +16,17 @@ server.use(cors());
 server.use(express.json());
 
 server.use('/api/users', usersRouter);
-//server.use('https://aw-fitness-5.herokuapp.com/api/users', usersRouter);
-
 server.use('/api/classes', classesRouter);
-//server.use('https://aw-fitness-5.herokuapp.com/api/classes', classesRouter);
-
-server.use('/api/addClass', secureAddClassRouter);
-
-// server.use('/', (req, res) => {
-//   res.send("=== API is running ===");
-// }) 
-
+server.use('/api/roles', rolesRouter);
+server.use('/api/userrole', userroleRouter);
 server.use('/api/secure', secureLoginRouter);
 
-server.get("/", (req, res) => {
-  res.status(200).json({message: "*** server running ***"});
-})
-
-module.exports = server;
+server.use('/', (req, res) => { 
+  res.json({message: 'API is running'});
+}) ;
 
 function verifyToken(req, res, next) {
-  // token should be sent in the headeer as value to Authorization
+  // token should be sent in the header as value to Authorization
   const bearerHeader = req.headers['authorization'];
   if (typeof bearerHeader !== 'undefined') {
     const bearer = bearerHeader.split(' ');
@@ -46,3 +37,5 @@ function verifyToken(req, res, next) {
     res.sendStatus(403); // user is forbidden
   }
 }
+
+module.exports = server;
