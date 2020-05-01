@@ -4,6 +4,13 @@ const request = supertest(app);
 
 describe('Sample Test', ()=> {
 
+  const user = {
+    username: "testuser1",
+    password: "password8",
+    fname: "Test",
+    lname: "User"
+  }
+
   it('should test that true === true', () => {
     expect(true).toBe(true)
   })
@@ -13,17 +20,23 @@ describe('Sample Test', ()=> {
   })
 
   it('should async test to /', async done => {
-    await request.get('/')
+    const response = await request.get('/')
+    expect(response.status).toBe(200)
+    expect(response.body.message).toBe('API up ...')
     done() 
   })
 
   it('should async test to /api/users', async done => {
-    await request.get('/api/users')
+    const response = await request.get('/api/users')
+    expect(response.status).toBe(200)
     done() 
   })
 
-  it('should async test to /api/classes', async done => {
-    await request.get('/api/classes')
+  it('should create a new user /api/users', async done => {
+    const response = await request
+      .post('/api/users')
+      .send(user)
+    expect(response.status).toBe(200)
     done() 
   })
 

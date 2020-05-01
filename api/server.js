@@ -22,8 +22,12 @@ server.use('/api/userrole', userroleRouter);
 server.use('/api/secure', secureLoginRouter);
 
 server.use('/', (req, res) => { 
-  res.send("API up ...");
+  res.json({ message: 'API up ...'})
 }) ;
+
+server.use('/api/test', (req, res) => {
+  res.json({ message: 'pass!' })
+})
 
 function verifyToken(req, res, next) {
   // token should be sent in the headeer as value to Authorization
